@@ -39,13 +39,13 @@ incrementCurrentSection :: TextLoc -> IO Text
 incrementCurrentSection fp = do
   let currentFp = currentFileLoc fp
   itExists <- doesFileExist currentFp
-  if itExists
+  if not itExists
     then startCounting currentFp
     else do
       currentNum <- readFile currentFp
       let numText = readMaybe $ T.unpack currentNum :: Maybe Int
       case numText of
-        (Just n) -> writeFile fp (T.pack . show $ n + 1) >> return (T.pack . show $ n)
+        (Just n) -> writeFile currentFp (T.pack . show $ n + 1) >> return (T.pack . show $ n)
         Nothing -> startCounting currentFp
 
 startCounting :: CurrentRecordFile -> IO Text
