@@ -1,6 +1,16 @@
 module Main where
 
-import Lib
+import Protolude
+import PLA
+import PLA.Config
+import PLA.Post
+import PLA.Text
 
 main :: IO ()
-main = someFunc
+main = do
+  -- get credentials
+  textLoc <- getTextLocation
+  twitCreds <- getTWInfoFromEnv
+  text <- getText textLoc
+  let preppedText = textToList text
+  piTextToStatus twitCreds preppedText Nothing
