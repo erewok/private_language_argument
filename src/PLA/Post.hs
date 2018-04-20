@@ -76,6 +76,6 @@ makeStatusUpdate section Nothing = Status {
   , statusInReplyToStatusId = Nothing }
 makeStatusUpdate section (Just sid) = Status {
   statusId = Nothing
-  , statusText = section <> " @priv_lang_arg"
+  , statusText = section
   , statusInReplyToScreenName = Just "priv_lang_arg"
   , statusInReplyToStatusId = Just sid }
